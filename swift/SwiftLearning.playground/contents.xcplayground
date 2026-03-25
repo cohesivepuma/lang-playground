@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<playground version='6.0' target-platform='macos' buildActiveScheme='true'>
+    <pages>
+        <page name='01-Basics'/>
+        <page name='02-Collections'/>
+        <page name='03-ControlFlow'/>
+        <page name='04-Functions'/>
+        <page name='05-StructClass'/>
+        <page name='06-ProtocolExtension'/>
+        <page name='07-Optionals'/>
+        <page name='08-Generics'/>
+        <page name='09-FinalProject'/>
+    </pages>
+</playground>
