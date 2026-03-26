@@ -1,0 +1,349 @@
+\documentclass[12pt, a4paper]{article}
+
+% ==================== 宏包引入 ====================
+\usepackage[UTF8]{ctex}           % 中文支持
+\usepackage{geometry}             % 页面布局
+\usepackage{amsmath, amssymb}     % 数学公式
+\usepackage{graphicx}             % 插图
+\usepackage{hyperref}             % 超链接
+\usepackage{listings}             % 代码高亮
+\usepackage{xcolor}               % 颜色
+\usepackage{booktabs}             % 三线表
+\usepackage{enumitem}             % 列表定制
+\usepackage{fancyhdr}             % 页眉页脚
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 代码样式
+\lstset{
+  basicstyle=\small\ttfamily,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{gray},
+  stringstyle=\color{red},
+  backgroundcolor=\color{gray!10},
+  frame=single,
+  breaklines=true,
+  language=[LaTeX]TeX,
+  literate={\\}{{{\color{blue}\textbackslash}}}1,
+}
+
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=cyan}
+
+\title{\LaTeX{} 入门教程}
+\author{自动生成}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+% ==================== 第一章 ====================
+\section{什么是 \LaTeX{}}
+
+\LaTeX{} 是一种基于 \TeX{} 的排版系统，由 Leslie Lamport 开发。它特别适合：
+
+\begin{itemize}
+  \item 学术论文、书籍排版
+  \item 数学公式的精确呈现
+  \item 自动化的交叉引用、目录和参考文献管理
+\end{itemize}
+
+与 Word 等所见即所得编辑器不同，\LaTeX{} 采用"所写即所得"的方式——你编写源代码，编译后生成 PDF。
+
+% ==================== 第二章 ====================
+\section{文档结构}
+
+一个最简单的 \LaTeX{} 文档如下：
+
+\begin{lstlisting}
+\documentclass{article}
+\begin{document}
+Hello, World!
+\end{document}
+\end{lstlisting}
+
+\subsection{文档类}
+
+\verb|\documentclass| 指定文档类型，常用选项：
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ll}
+\toprule
+文档类 & 用途 \\
+\midrule
+\texttt{article} & 短文、论文 \\
+\texttt{report}  & 长篇报告（含章节） \\
+\texttt{book}    & 书籍 \\
+\texttt{beamer}  & 幻灯片 \\
+\bottomrule
+\end{tabular}
+\caption{常用文档类}
+\end{table}
+
+\subsection{前言区与正文区}
+
+\begin{lstlisting}
+\documentclass[12pt, a4paper]{article}
+% ----- 前言区 (preamble) -----
+\usepackage{amsmath}
+\title{我的文档}
+\author{张三}
+
+% ----- 正文区 -----
+\begin{document}
+\maketitle
+正文内容...
+\end{document}
+\end{lstlisting}
+
+前言区用于加载宏包、设置参数；正文区包含实际内容。
+
+% ==================== 第三章 ====================
+\section{文本排版}
+
+\subsection{字体样式}
+
+\begin{tabular}{ll}
+\toprule
+命令 & 效果 \\
+\midrule
+\verb|\textbf{粗体}| & \textbf{粗体} \\
+\verb|\textit{斜体}| & \textit{斜体} \\
+\verb|\underline{下划线}| & \underline{下划线} \\
+\verb|\texttt{等宽}| & \texttt{等宽} \\
+\bottomrule
+\end{tabular}
+
+\subsection{段落与换行}
+
+\begin{itemize}
+  \item 空行产生新段落
+  \item \verb|\\| 强制换行（不产生新段落）
+  \item \verb|\newpage| 强制换页
+\end{itemize}
+
+\subsection{列表}
+
+\textbf{无序列表：}
+\begin{lstlisting}
+\begin{itemize}
+  \item 第一项
+  \item 第二项
+\end{itemize}
+\end{lstlisting}
+
+\textbf{有序列表：}
+\begin{lstlisting}
+\begin{enumerate}
+  \item 第一项
+  \item 第二项
+\end{enumerate}
+\end{lstlisting}
+
+% ==================== 第四章 ====================
+\section{数学公式}
+
+这是 \LaTeX{} 最强大的能力之一。
+
+\subsection{行内公式}
+
+用 \verb|$...$| 包裹：质能方程 $E = mc^2$。
+
+\subsection{行间公式}
+
+用 \verb|\[...\]| 或 \texttt{equation} 环境：
+
+\begin{equation}
+  \int_{-\infty}^{\infty} e^{-x^2} \, dx = \sqrt{\pi}
+\end{equation}
+
+\subsection{常用数学符号}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\toprule
+代码 & 效果 & 说明 \\
+\midrule
+\verb|\frac{a}{b}| & $\frac{a}{b}$ & 分数 \\
+\verb|x^{2}| & $x^{2}$ & 上标 \\
+\verb|x_{i}| & $x_{i}$ & 下标 \\
+\verb|\sqrt{x}| & $\sqrt{x}$ & 根号 \\
+\verb|\sum_{i=1}^{n}| & $\sum_{i=1}^{n}$ & 求和 \\
+\verb|\alpha, \beta| & $\alpha, \beta$ & 希腊字母 \\
+\verb|\leq, \geq| & $\leq, \geq$ & 不等号 \\
+\verb|\infty| & $\infty$ & 无穷 \\
+\bottomrule
+\end{tabular}
+\caption{常用数学符号速查}
+\end{table}
+
+\subsection{矩阵}
+
+\begin{lstlisting}
+\begin{equation}
+  A = \begin{pmatrix}
+    1 & 2 \\
+    3 & 4
+  \end{pmatrix}
+\end{equation}
+\end{lstlisting}
+
+效果：
+\begin{equation}
+  A = \begin{pmatrix}
+    1 & 2 \\
+    3 & 4
+  \end{pmatrix}
+\end{equation}
+
+\subsection{多行公式对齐}
+
+\begin{lstlisting}
+\begin{align}
+  f(x) &= x^2 + 2x + 1 \\
+       &= (x + 1)^2
+\end{align}
+\end{lstlisting}
+
+效果：
+\begin{align}
+  f(x) &= x^2 + 2x + 1 \\
+       &= (x + 1)^2
+\end{align}
+
+% ==================== 第五章 ====================
+\section{图片与表格}
+
+\subsection{插入图片}
+
+\begin{lstlisting}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.6\textwidth]{example.png}
+  \caption{示例图片}
+  \label{fig:example}
+\end{figure}
+\end{lstlisting}
+
+浮动位置参数：\texttt{h}(当前位置)、\texttt{t}(页顶)、\texttt{b}(页底)、\texttt{p}(独立页)。
+
+\subsection{三线表}
+
+\begin{lstlisting}
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}{ccc}
+    \toprule
+    姓名 & 年龄 & 成绩 \\
+    \midrule
+    张三 & 20 & 95 \\
+    李四 & 21 & 88 \\
+    \bottomrule
+  \end{tabular}
+  \caption{学生成绩表}
+\end{table}
+\end{lstlisting}
+
+% ==================== 第六章 ====================
+\section{交叉引用与参考文献}
+
+\subsection{标签与引用}
+
+\begin{lstlisting}
+\section{方法}\label{sec:method}
+如公式 \ref{eq:euler} 所示...
+
+\begin{equation}\label{eq:euler}
+  e^{i\pi} + 1 = 0
+\end{equation}
+\end{lstlisting}
+
+使用 \verb|\label{}| 打标签，\verb|\ref{}| 引用编号，\verb|\pageref{}| 引用页码。
+
+\subsection{参考文献（BibTeX）}
+
+创建 \texttt{refs.bib} 文件：
+
+\begin{lstlisting}
+@article{einstein1905,
+  author  = {Albert Einstein},
+  title   = {On the Electrodynamics of Moving Bodies},
+  journal = {Annalen der Physik},
+  year    = {1905},
+}
+\end{lstlisting}
+
+在文档中引用：
+
+\begin{lstlisting}
+根据 Einstein \cite{einstein1905} 的研究...
+
+\bibliographystyle{plain}
+\bibliography{refs}
+\end{lstlisting}
+
+% ==================== 第七章 ====================
+\section{常用宏包速查}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ll}
+\toprule
+宏包 & 功能 \\
+\midrule
+\texttt{ctex} & 中文排版支持 \\
+\texttt{amsmath} & 增强数学公式 \\
+\texttt{graphicx} & 插入图片 \\
+\texttt{hyperref} & 超链接与 PDF 书签 \\
+\texttt{listings} & 代码高亮 \\
+\texttt{geometry} & 自定义页面边距 \\
+\texttt{booktabs} & 专业三线表 \\
+\texttt{tikz} & 矢量绘图 \\
+\texttt{biblatex} & 现代参考文献管理 \\
+\bottomrule
+\end{tabular}
+\caption{常用宏包}
+\end{table}
+
+% ==================== 第八章 ====================
+\section{编译方式}
+
+\subsection{常用编译命令}
+
+\begin{lstlisting}[language=bash]
+# 推荐：XeLaTeX（支持中文和 Unicode）
+xelatex tutorial.tex
+
+# 含参考文献时的完整流程
+xelatex tutorial.tex
+bibtex tutorial
+xelatex tutorial.tex
+xelatex tutorial.tex
+
+# 或使用 latexmk 自动处理
+latexmk -xelatex tutorial.tex
+\end{lstlisting}
+
+\subsection{推荐编辑器}
+
+\begin{itemize}
+  \item \textbf{VS Code} + LaTeX Workshop 插件
+  \item \textbf{Overleaf}（在线协作）
+  \item \textbf{TeXstudio}（专用 IDE）
+\end{itemize}
+
+\section{总结}
+
+本教程涵盖了 \LaTeX{} 的核心用法：文档结构、文本排版、数学公式、图表、交叉引用和参考文献。掌握这些内容足以应对大部分学术写作需求。更多进阶内容可参考：
+
+\begin{itemize}
+  \item \href{https://www.overleaf.com/learn}{Overleaf 官方文档}
+  \item \href{https://ctan.org/}{CTAN 宏包仓库}
+  \item 《\LaTeX 入门》（刘海洋 著）
+\end{itemize}
+
+\end{document}
