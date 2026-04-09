@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<!--
+    HTML 基础教程 05 - 媒体元素（图片、视频、音频、表格、SVG）
+    知识点：
+    1. <img> 图片：src、alt、srcset 响应式
+    2. <video> 视频：controls、autoplay、muted、多源、字幕
+    3. <audio> 音频：controls、多源格式
+    4. <table> 表格：thead/tbody/tfoot、合并单元格
+    5. SVG 矢量图：<svg>、<path>、fill="currentColor"
+    来源：notes/90-programming/frontend/html/50-media.md
+-->
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>05 媒体元素 — HTML 基础教程</title>
+    <style>
+        body { font-family: system-ui, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.8; }
+        h1 { border-bottom: 2px solid #333; padding-bottom: 8px; }
+        h2 { color: #2563eb; margin-top: 32px; }
+        h3 { color: #475569; margin-top: 20px; }
+        .demo-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin: 12px 0; }
+        table { border-collapse: collapse; width: 100%; margin: 12px 0; }
+        th, td { border: 1px solid #e2e8f0; padding: 8px 12px; text-align: left; }
+        th { background: #f1f5f9; }
+        code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+        .svg-demo { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+        .svg-demo div { text-align: center; }
+    </style>
+</head>
+<body>
+
+    <h1>媒体元素</h1>
+
+    <!-- ============================================ -->
+    <!-- 第一部分：图片 <img>                            -->
+    <!-- src: 图片路径（必须）                           -->
+    <!-- alt: 图片无法显示时的替代文字（SEO + 可访问性）  -->
+    <!-- ============================================ -->
+    <h2>一、图片 &lt;img&gt;</h2>
+
+    <h3>基本用法</h3>
+    <div class="demo-box">
+        <!-- alt 非常重要：图片加载失败时显示，屏幕阅读器使用，SEO 参考 -->
+        <img src="https://via.placeholder.com/400x200/dbeafe/1e40af?text=Demo+Image"
+             alt="演示图片"
+             width="400"
+             height="200"
+             title="鼠标悬浮时显示这段文字">
+    </div>
+
+    <h3>img 属性速查</h3>
+    <table>
+        <tr><th>属性</th><th>说明</th></tr>
+        <tr><td><code>src</code></td><td>图片路径（必须）</td></tr>
+        <tr><td><code>alt</code></td><td>替代文字，图片无法显示时展示</td></tr>
+        <tr><td><code>width / height</code></td><td>图片宽高（建议写上防止布局抖动）</td></tr>
+        <tr><td><code>title</code></td><td>鼠标悬浮显示的提示信息</td></tr>
+        <tr><td><code>srcset</code></td><td>响应式图片，不同分辨率加载不同图片</td></tr>
+    </table>
+
+    <!--
+        响应式图片：
+        srcset 定义不同宽度的图片候选
+        sizes 告诉浏览器在不同视口宽度下用多大的图片
+        浏览器自动选择最合适的图片加载
+    -->
+    <h3>响应式图片 (srcset)</h3>
+    <div class="demo-box">
+        <p>浏览器会根据视口宽度自动选择合适尺寸的图片：</p>
+        <pre><code>&lt;img src="small.jpg"
+     srcset="small.jpg 480w, medium.jpg 800w, large.jpg 1200w"
+     sizes="(max-width: 600px) 480px, 800px"
+     alt="响应式图片"&gt;</code></pre>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- 第二部分：视频 <video>                          -->
+    <!-- controls: 显示播放控制条                        -->
+    <!-- autoplay: 自动播放（需配合 muted 才能生效）     -->
+    <!-- 标签内的文字：不支持视频播放时的回退提示         -->
+    <!-- ============================================ -->
+    <h2>二、视频 &lt;video&gt;</h2>
+
+    <h3>video 属性速查</h3>
+    <table>
+        <tr><th>属性</th><th>说明</th></tr>
+        <tr><td><code>src</code></td><td>视频路径</td></tr>
+        <tr><td><code>controls</code></td><td>显示播放/暂停/进度条/音量控制</td></tr>
+        <tr><td><code>width / height</code></td><td>视频宽高</td></tr>
+        <tr><td><code>autoplay</code></td><td>自动播放（需配合 muted）</td></tr>
+        <tr><td><code>muted</code></td><td>静音（autoplay 必须配合 muted）</td></tr>
+        <tr><td><code>loop</code></td><td>循环播放</td></tr>
+        <tr><td><code>poster</code></td><td>封面图片（视频加载前显示）</td></tr>
+        <tr><td><code>preload</code></td><td>预加载：auto / metadata / none</td></tr>
+    </table>
+
+    <!--
+        多源视频：
+        用 <source> 提供多种格式，浏览器自动选择支持的格式
+        兼容性排列：mp4 > webm > ogg
+    -->
+    <h3>多源视频</h3>
+    <div class="demo-box">
+        <pre><code>&lt;video controls width="640" height="360"&gt;
+    &lt;source src="video.mp4" type="video/mp4"&gt;
+    &lt;source src="video.webm" type="video/webm"&gt;
+    您的浏览器不支持视频播放
+&lt;/video&gt;</code></pre>
+    </div>
+
+    <!--
+        视频字幕：
+        <track> 标签加载 .vtt 格式的字幕文件
+        kind: subtitles（字幕）/ captions（描述性字幕）
+        srclang: 字幕语言
+    -->
+    <h3>视频字幕 (track)</h3>
+    <div class="demo-box">
+        <pre><code>&lt;video controls&gt;
+    &lt;source src="video.mp4" type="video/mp4"&gt;
+    &lt;track src="subtitles.vtt" kind="subtitles" srclang="zh" label="中文"&gt;
+&lt;/video&gt;</code></pre>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- 第三部分：音频 <audio>                          -->
+    <!-- 用法和 video 非常类似，属性也基本相同            -->
+    <!-- ============================================ -->
+    <h2>三、音频 &lt;audio&gt;</h2>
+
+    <h3>audio 属性速查</h3>
+    <table>
+        <tr><th>属性</th><th>说明</th></tr>
+        <tr><td><code>src</code></td><td>音频路径</td></tr>
+        <tr><td><code>controls</code></td><td>显示控制条（播放/暂停/进度/音量）</td></tr>
+        <tr><td><code>autoplay</code></td><td>自动播放</td></tr>
+        <tr><td><code>muted</code></td><td>静音</td></tr>
+        <tr><td><code>loop</code></td><td>循环播放</td></tr>
+        <tr><td><code>preload</code></td><td>预加载方式</td></tr>
+    </table>
+
+    <!-- 多源音频同理 -->
+    <h3>多源音频</h3>
+    <div class="demo-box">
+        <pre><code>&lt;audio controls&gt;
+    &lt;source src="audio.mp3" type="audio/mpeg"&gt;
+    &lt;source src="audio.ogg" type="audio/ogg"&gt;
+    您的浏览器不支持音频播放
+&lt;/audio&gt;</code></pre>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- 第四部分：表格 <table>                          -->
+    <!-- 结构：thead（表头）+ tbody（主体）+ tfoot（底部）-->
+    <!-- 合并：colspan（跨列）、rowspan（跨行）          -->
+    <!-- ============================================ -->
+    <h2>四、表格 &lt;table&gt;</h2>
+
+    <h3>表格标签速查</h3>
+    <table>
+        <tr><th>标签</th><th>说明</th></tr>
+        <tr><td><code>&lt;table&gt;</code></td><td>表格容器</td></tr>
+        <tr><td><code>&lt;caption&gt;</code></td><td>表格标题</td></tr>
+        <tr><td><code>&lt;thead&gt;</code></td><td>表头区域</td></tr>
+        <tr><td><code>&lt;tbody&gt;</code></td><td>表格主体</td></tr>
+        <tr><td><code>&lt;tfoot&gt;</code></td><td>表格底部</td></tr>
+        <tr><td><code>&lt;tr&gt;</code></td><td>一行 (Table Row)</td></tr>
+        <tr><td><code>&lt;th&gt;</code></td><td>表头单元格 (Table Header)，自动加粗居中</td></tr>
+        <tr><td><code>&lt;td&gt;</code></td><td>数据单元格 (Table Data)</td></tr>
+    </table>
+
+    <!-- 完整表格示例：成绩单 -->
+    <h3>成绩单示例</h3>
+    <table>
+        <caption>期末成绩单</caption>
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>数学</th>
+                <th>英语</th>
+                <th>语文</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>张三</td>
+                <td>95</td>
+                <td>88</td>
+                <td>92</td>
+            </tr>
+            <tr>
+                <td>李四</td>
+                <td>87</td>
+                <td>91</td>
+                <td>85</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <!-- colspan="3" 跨 3 列合并 -->
+                <td colspan="3" style="text-align:right;font-weight:bold;">班级平均</td>
+                <td>88.5</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <!-- 合并单元格示例 -->
+    <h3>单元格合并</h3>
+    <table>
+        <tr>
+            <th>项目</th>
+            <th>周一</th>
+            <th>周二</th>
+        </tr>
+        <tr>
+            <!-- rowspan="2" 跨 2 行合并 -->
+            <td rowspan="2">上午</td>
+            <td>数学</td>
+            <td>语文</td>
+        </tr>
+        <tr>
+            <!-- 因为上一行已经跨行占了第一列，这里直接从第二列开始 -->
+            <td>英语</td>
+            <td>物理</td>
+        </tr>
+        <tr>
+            <td>下午</td>
+            <!-- colspan="2" 跨 2 列合并 -->
+            <td colspan="2" style="text-align:center;">自习</td>
+        </tr>
+    </table>
+
+    <!-- ============================================ -->
+    <!-- 第五部分：SVG 矢量图                           -->
+    <!-- SVG = Scalable Vector Graphics，放大不失真     -->
+    <!-- 适合图标、Logo 等                              -->
+    <!-- fill="currentColor" 继承父元素文字颜色          -->
+    <!-- ============================================ -->
+    <h2>五、SVG 矢量图</h2>
+
+    <div class="demo-box">
+        <p>SVG 是矢量图格式，放大不失真，适合图标和 Logo。</p>
+        <p><code>fill="currentColor"</code> 让图标颜色跟随父元素文字颜色，暗色模式自动适配。</p>
+    </div>
+
+    <h3>SVG path 指令</h3>
+    <table>
+        <tr><th>指令</th><th>含义</th></tr>
+        <tr><td>M</td><td>Move to（移动到起点）</td></tr>
+        <tr><td>L</td><td>Line to（画直线）</td></tr>
+        <tr><td>C</td><td>Curve to（贝塞尔曲线）</td></tr>
+        <tr><td>Z</td><td>Close（闭合路径）</td></tr>
+    </table>
+
+    <h3>SVG 示例</h3>
+    <div class="demo-box svg-demo">
+        <!-- 简单的 SVG 圆形 -->
+        <div>
+            <svg width="60" height="60" viewBox="0 0 60 60">
+                <circle cx="30" cy="30" r="25" fill="#3b82f6" />
+            </svg>
+            <p>circle</p>
+        </div>
+        <!-- 简单的 SVG 矩形 -->
+        <div>
+            <svg width="60" height="60" viewBox="0 0 60 60">
+                <rect x="10" y="10" width="40" height="40" rx="8" fill="#22c55e" />
+            </svg>
+            <p>rect</p>
+        </div>
+        <!-- path：用 fill="currentColor" 继承文字颜色 -->
+        <div style="color: #e11d48;">
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+            <p>path (heart)</p>
+        </div>
+    </div>
+
+    <div class="demo-box">
+        <p><strong>实际项目中不手写 path 数据</strong>，而是从图标库复制：</p>
+        <ul>
+            <li><a href="https://heroicons.com" target="_blank">heroicons.com</a></li>
+            <li><a href="https://lucide.dev" target="_blank">lucide.dev</a></li>
+            <li><a href="https://simpleicons.org" target="_blank">simpleicons.org</a></li>
+        </ul>
+    </div>
+
+</body>
+</html>

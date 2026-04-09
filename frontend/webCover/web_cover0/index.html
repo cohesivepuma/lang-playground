@@ -1,0 +1,242 @@
+<!-- couved by https://douglus.site/ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SteveRay</title>
+
+  <!-- 字体：标题用 Bebas Neue（大字冲击感），正文用 DM Sans（干净现代） -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── CSS 变量：整个网站的风格系统 ── */
+    :root {
+      --bg:       #f2ede8;   /* 米白背景，比纯白更有质感 */
+      --ink:      #0d0d0d;   /* 近黑色，用于大标题 */
+      --muted:    #888;      /* 灰色，用于导航和小字 */
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body:    'DM Sans', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-weight: 300;
+      min-height: 100vh;
+      cursor: none; /* 隐藏系统光标，用自定义光标替代 */
+    }
+
+    /* ── 自定义光标 ── */
+    .cursor {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      border: 1.5px solid var(--ink);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease;
+    }
+
+    /* ── 导航 ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 1.8rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      mix-blend-mode: multiply; /* 让导航在图片上也清晰 */
+    }
+
+    .nav-logo {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 0.95rem;
+      color: var(--ink);
+      letter-spacing: 0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+    }
+
+    /* ── Hero 区域 ── */
+    .hero {
+      min-height: 100vh;
+      padding: 0 2.5rem;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      position: relative;
+    }
+
+    /* .hero-main {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-bottom: 1rem;
+    } */
+     .hero-main {
+      display: flex;
+      justify-content: space-between; /* 左右两端 */
+      align-items: flex-end;          /* 底部对齐 */
+    }
+
+    /* 编号标签，对标你截图里的 "01/" */
+    .hero-index {
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+      margin-top: 8rem; /* 给固定导航留空间 */
+    }
+
+    .hero-sub {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 3rem;
+      max-width: 200px;
+      line-height: 1.6;
+    }
+
+    /* 核心大标题 */
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(5rem, 14vw, 13rem); /* 响应式字号 */
+      line-height: 0.92;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      /* position: absolute;
+      right: 2.5rem;
+      top: 10%; */
+      /* transform: translateY(-60%); */
+      text-align: right;
+    }
+
+    /* ── 底部信息条 ── */
+    .hero-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: 2rem 0 2.5rem;
+      border-top: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .hero-name {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 7rem);
+      line-height: 1;
+      color: var(--ink);
+    }
+
+    .hero-location {
+      text-align: right;
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.8;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    /* ── 页面淡入动画 ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-index  { animation: fadeUp 0.8s ease 0.1s both; }
+    .hero-sub    { animation: fadeUp 0.8s ease 0.2s both; }
+    .hero-title  { animation: fadeUp 0.9s ease 0.3s both; }
+    .hero-name   { animation: fadeUp 0.9s ease 0.4s both; }
+    .hero-location { animation: fadeUp 0.9s ease 0.5s both; }
+
+  </style>
+</head>
+<body>
+
+  <!-- 自定义光标 -->
+  <div class="cursor" id="cursor"></div>
+
+  <!-- 导航 -->
+  <nav>
+    <span class="nav-logo">SteveRay</span>
+    <ul class="nav-links">
+      <li><a href="https://github.com/" target="_blank">Github</a></li>
+      <li><a href="mailto:your@email.com">Email</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-main">
+      <!-- <p class="hero-index">01/</p> -->
+
+      <!-- ───────────────────────────────────────────────
+           TODO 1：把下面这段话改成你自己的介绍
+           现在是占位文字，2-3 行就够，不要太长
+      ─────────────────────────────────────────────── -->
+      <p class="hero-sub">
+        Hi! My name is SteveRay<br>
+        I live in China now<br>
+        I'm interested in AI and every technology!
+      </p>
+
+      <h1 class="hero-title">CS<br>STUDENT</h1>
+    </div>
+
+    <div class="hero-footer">
+
+      <div class="hero-name">STEVERAY</div>
+
+      <!-- ───────────────────────────────────────────────
+           TODO 2：把下面三行改成你真实的信息
+           城市 / 学校 / 方向
+      ─────────────────────────────────────────────── -->
+      <div class="hero-location">
+        Nanjin<br>
+        NJ<br>
+        ML & DL
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+    // 自定义光标跟随鼠标
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+    });
+  </script>
+
+</body>
+</html>

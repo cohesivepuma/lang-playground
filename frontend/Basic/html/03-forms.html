@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<!--
+    HTML 基础教程 03 - 表单
+    ====================
+    知识点：
+    1. <form> 表单结构：action（提交地址）、method（get/post）
+    2. <input> 的各种 type：text、password、email、radio、checkbox、file 等
+    3. <label> 标签的关联方式（for 属性 或 包裹 input）
+    4. <select> 下拉选择、<textarea> 多行文本
+    5. <button> 提交与重置按钮
+    6. 表单验证属性：required、minlength、maxlength
+
+    来源：Obsidian 笔记 notes/90-programming/frontend/html/30-forms.md
+-->
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03 表单 — HTML 基础教程</title>
+    <style>
+        body { font-family: system-ui, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.8; }
+        h1 { border-bottom: 2px solid #333; padding-bottom: 8px; }
+        h2 { color: #2563eb; margin-top: 32px; }
+        h3 { color: #475569; }
+        .demo-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin: 12px 0; }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 4px; color: #334155; }
+        input[type="text"], input[type="password"], input[type="email"], input[type="number"],
+        input[type="tel"], input[type="url"], input[type="date"], input[type="time"],
+        select, textarea {
+            padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; width: 100%; box-sizing: border-box;
+        }
+        button { padding: 8px 20px; border: none; border-radius: 6px; font-size: 14px; cursor: pointer; margin-right: 8px; }
+        button[type="submit"] { background: #2563eb; color: white; }
+        button[type="reset"] { background: #e2e8f0; color: #334155; }
+        table { border-collapse: collapse; width: 100%; margin: 12px 0; }
+        th, td { border: 1px solid #e2e8f0; padding: 8px 12px; text-align: left; }
+        th { background: #f1f5f9; }
+        code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+
+    <h1>HTML 表单</h1>
+
+    <!-- ============================================ -->
+    <!-- 第一部分：表单基本结构                          -->
+    <!-- <form> 是所有表单元素的容器                     -->
+    <!-- action: 表单提交的目标 URL                     -->
+    <!-- method: get（数据在 URL 中）或 post（数据在请求体中）-->
+    <!-- ============================================ -->
+    <h2>一、表单结构 &lt;form&gt;</h2>
+
+    <div class="demo-box">
+        <p><code>action</code> —— 表单提交的 URL 地址</p>
+        <p><code>method</code> —— 提交方式：</p>
+        <ul>
+            <!-- get 方式：数据附加在 URL 后面，如 ?username=xxx&password=xxx -->
+            <li><code>get</code>（默认）—— 数据附在 URL 后，有长度限制，可被浏览器缓存/收藏</li>
+            <!-- post 方式：数据在 HTTP 请求体中，更安全 -->
+            <li><code>post</code> —— 数据在请求体中，无长度限制，更安全</li>
+        </ul>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- 第二部分：Input 属性速查                        -->
+    <!-- name: 提交时的字段名（必须有，否则数据不会被提交）-->
+    <!-- id: 元素标识，用于 label 关联和 JS/CSS 选择     -->
+    <!-- placeholder: 输入框为空时显示的灰色提示文本     -->
+    <!-- required: HTML5 原生验证，必填项               -->
+    <!-- ============================================ -->
+    <h2>二、Input 属性速查</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>属性</th>
+                <th>说明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><code>type</code></td><td>输入框类型（见下表）</td></tr>
+            <tr><td><code>name</code></td><td>表单提交时的字段名（必须有）</td></tr>
+            <tr><td><code>id</code></td><td>元素标识，供 label、CSS、JS 使用</td></tr>
+            <tr><td><code>value</code></td><td>输入框的值（预填内容）</td></tr>
+            <tr><td><code>placeholder</code></td><td>占位提示文本（灰色）</td></tr>
+            <tr><td><code>required</code></td><td>必填项验证</td></tr>
+            <tr><td><code>maxlength</code></td><td>最大输入长度</td></tr>
+            <tr><td><code>minlength</code></td><td>最小输入长度</td></tr>
+        </tbody>
+    </table>
+
+    <!-- ============================================ -->
+    <!-- 第三部分：Input Type 类型速查                   -->
+    <!-- 不同的 type 会改变 input 的外观和行为           -->
+    <!-- email/url/number 等类型自带基础验证             -->
+    <!-- ============================================ -->
+    <h2>三、Input Type 类型速查</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>类型</th>
+                <th>说明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><code>text</code></td><td>文本输入（默认）</td></tr>
+            <tr><td><code>password</code></td><td>密码输入（内容显示为圆点）</td></tr>
+            <tr><td><code>email</code></td><td>电子邮件（自带 @ 格式验证）</td></tr>
+            <tr><td><code>number</code></td><td>数字输入（带上下箭头）</td></tr>
+            <tr><td><code>tel</code></td><td>电话号码（移动端弹出数字键盘）</td></tr>
+            <tr><td><code>url</code></td><td>URL 地址（自带格式验证）</td></tr>
+            <tr><td><code>date</code></td><td>日期选择器</td></tr>
+            <tr><td><code>time</code></td><td>时间选择器</td></tr>
+            <tr><td><code>range</code></td><td>范围滑块</td></tr>
+            <tr><td><code>radio</code></td><td>单选按钮（同 name 互斥）</td></tr>
+            <tr><td><code>checkbox</code></td><td>多选框</td></tr>
+            <tr><td><code>file</code></td><td>文件上传</td></tr>
+            <tr><td><code>submit</code></td><td>提交按钮</td></tr>
+            <tr><td><code>reset</code></td><td>重置按钮</td></tr>
+            <tr><td><code>button</code></td><td>普通按钮（无默认行为）</td></tr>
+        </tbody>
+    </table>
+
+    <!-- ============================================ -->
+    <!-- 第四部分：各种表单控件演示                       -->
+    <!-- 每个 input 都配有 label 提升可访问性             -->
+    <!-- label 的 for 属性要和 input 的 id 对应          -->
+    <!-- 或者直接用 label 包裹 input（不需要 for/id）    -->
+    <!-- ============================================ -->
+    <h2>四、表单控件演示</h2>
+
+    <!-- 
+        完整注册表单示例
+        action="/register" 表示提交到 /register 路径
+        method="post" 表示用 POST 方式提交（密码等敏感数据应该用 POST）
+    -->
+    <form action="/register" method="post">
+
+        <!-- 文本输入 -->
+        <div class="form-group">
+            <!-- label 的 for 属性和 input 的 id 对应，点击 label 文字会聚焦到 input -->
+            <label for="username">用户名：</label>
+            <input type="text" name="username" id="username" required placeholder="请输入用户名">
+        </div>
+
+        <!-- 邮箱输入：type="email" 自带格式验证 -->
+        <div class="form-group">
+            <label for="email">邮箱：</label>
+            <input type="email" name="email" id="email" required placeholder="example@mail.com">
+        </div>
+
+        <!-- 密码输入：type="password" 内容显示为圆点 -->
+        <div class="form-group">
+            <label for="password">密码：</label>
+            <!-- minlength 和 maxlength 限制密码长度 -->
+            <input type="password" name="password" id="password" minlength="6" maxlength="20" required placeholder="6-20 位密码">
+        </div>
+
+        <!-- 
+            单选按钮 radio：
+            同一组的 name 必须相同（这里都是 "gender"），才能实现互斥（只能选一个）
+            value 是提交到服务器的值
+        -->
+        <div class="form-group">
+            <label>性别：</label>
+            <!-- 用 label 包裹 input，点击文字也能选中 -->
+            <label><input type="radio" name="gender" value="male"> 男</label>
+            <label><input type="radio" name="gender" value="female"> 女</label>
+            <label><input type="radio" name="gender" value="other"> 其他</label>
+        </div>
+
+        <!--
+            多选框 checkbox：
+            不同于 radio，checkbox 可以同时选中多个
+            name 相同的 checkbox 提交时会发送数组
+        -->
+        <div class="form-group">
+            <label>兴趣爱好：</label>
+            <label><input type="checkbox" name="hobby" value="reading"> 阅读</label>
+            <label><input type="checkbox" name="hobby" value="music"> 音乐</label>
+            <label><input type="checkbox" name="hobby" value="sports"> 运动</label>
+            <label><input type="checkbox" name="hobby" value="coding"> 编程</label>
+        </div>
+
+        <!--
+            下拉选择 <select>：
+            第一个 option 通常是占位提示，value 设为空字符串
+        -->
+        <div class="form-group">
+            <label for="language">编程语言：</label>
+            <select name="language" id="language">
+                <option value="">-- 请选择 --</option>
+                <option value="java">Java</option>
+                <option value="python">Python</option>
+                <option value="javascript">JavaScript</option>
+                <option value="cpp">C++</option>
+            </select>
+        </div>
+
+        <!-- 日期选择器：浏览器会弹出原生日期组件 -->
+        <div class="form-group">
+            <label for="birthday">生日：</label>
+            <input type="date" name="birthday" id="birthday">
+        </div>
+
+        <!-- 范围滑块 range -->
+        <div class="form-group">
+            <label for="satisfaction">满意度（1-10）：</label>
+            <input type="range" name="satisfaction" id="satisfaction" min="1" max="10" value="5">
+        </div>
+
+        <!-- 文件上传：accept 限制可选文件类型 -->
+        <div class="form-group">
+            <label for="avatar">上传头像：</label>
+            <!-- accept="image/*" 表示只接受图片文件 -->
+            <input type="file" name="avatar" id="avatar" accept="image/*">
+        </div>
+
+        <!--
+            多行文本 <textarea>：
+            rows 控制可见行数，cols 控制可见列数
+            注意：textarea 不是自闭合标签，需要闭合标签
+        -->
+        <div class="form-group">
+            <label for="bio">个人简介：</label>
+            <textarea name="bio" id="bio" rows="4" cols="40" placeholder="请简单介绍自己..."></textarea>
+        </div>
+
+        <!-- 提交和重置按钮 -->
+        <div class="form-group">
+            <!-- type="submit" 会触发表单提交 -->
+            <button type="submit">提交注册</button>
+            <!-- type="reset" 会重置表单所有字段到默认值 -->
+            <button type="reset">重置</button>
+        </div>
+
+    </form>
+
+</body>
+</html>

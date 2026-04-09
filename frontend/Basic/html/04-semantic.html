@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<!--
+    HTML 基础教程 04 - 语义化与实体字符
+    知识点：语义化标签、SEO元标签、figure/figcaption、实体字符
+    来源：notes/90-programming/frontend/html/40-semantic.md
+-->
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>04 语义化 — HTML 基础教程</title>
+    <meta name="description" content="学习 HTML5 语义化标签，提升 SEO 和可访问性">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: system-ui, sans-serif; line-height: 1.8; color: #1e293b; }
+        header { background: #dbeafe; padding: 20px 40px; }
+        nav { background: #e0e7ff; padding: 12px 40px; }
+        nav a { margin-right: 16px; text-decoration: none; color: #3730a3; }
+        main { display: flex; padding: 20px 40px; gap: 24px; min-height: 50vh; }
+        article { flex: 3; background: #f0fdf4; padding: 24px; border-radius: 8px; }
+        article h2 { color: #166534; margin-bottom: 12px; }
+        section { margin-bottom: 24px; padding: 16px; background: white; border-radius: 6px; border-left: 4px solid #22c55e; }
+        section h3 { color: #15803d; margin-bottom: 8px; }
+        aside { flex: 1; background: #fef3c7; padding: 24px; border-radius: 8px; }
+        aside h3 { color: #92400e; margin-bottom: 12px; }
+        aside ul { padding-left: 20px; }
+        footer { background: #334155; color: #e2e8f0; padding: 20px 40px; text-align: center; }
+        figure { margin: 16px 0; text-align: center; }
+        figcaption { color: #64748b; font-size: 14px; margin-top: 8px; }
+        .ref { padding: 20px 40px; }
+        .ref h2 { color: #2563eb; margin: 24px 0 12px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
+        th, td { border: 1px solid #e2e8f0; padding: 8px 12px; text-align: left; }
+        th { background: #f1f5f9; }
+        code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <!-- <header> 页头：网站名称/Logo -->
+    <header>
+        <h1>我的技术博客</h1>
+    </header>
+
+    <!-- <nav> 导航链接区域 -->
+    <nav>
+        <a href="#">首页</a>
+        <a href="#">文章</a>
+        <a href="#">关于</a>
+    </nav>
+
+    <!-- <main> 页面主要内容（一个页面只能有一个） -->
+    <main>
+        <!-- <article> 独立的文章内容 -->
+        <article>
+            <h2>HTML5 语义化入门</h2>
+            <!-- <section> 文档中的区块 -->
+            <section>
+                <h3>什么是语义化？</h3>
+                <p>用<strong>有意义的标签</strong>描述内容结构，而不是只用 div 和 span。</p>
+            </section>
+            <section>
+                <h3>四大好处</h3>
+                <ol>
+                    <li><strong>代码可读性</strong> —— 结构清晰</li>
+                    <li><strong>SEO 优化</strong> —— 搜索引擎更好理解结构</li>
+                    <li><strong>可访问性</strong> —— 屏幕阅读器正确解读</li>
+                    <li><strong>样式分离</strong> —— 减少 class 依赖</li>
+                </ol>
+            </section>
+            <section>
+                <h3>图文组合 figure</h3>
+                <!-- <figure> + <figcaption>：图片配说明文字 -->
+                <figure>
+                    <img src="https://via.placeholder.com/500x150/e2e8f0/475569?text=Figure+Demo" alt="图文组合演示" style="max-width:100%;border-radius:8px;">
+                    <figcaption>图 1：figure + figcaption 组合示例</figcaption>
+                </figure>
+            </section>
+        </article>
+
+        <!-- <aside> 侧边栏/附属内容 -->
+        <aside>
+            <h3>相关链接</h3>
+            <ul>
+                <li><a href="#">MDN Web Docs</a></li>
+                <li><a href="#">CSS 入门</a></li>
+            </ul>
+        </aside>
+    </main>
+
+    <!-- <footer> 页脚：版权信息 -->
+    <footer>
+        <p>&copy; 2025 技术博客 &middot; HTML5 语义化构建</p>
+    </footer>
+
+    <!-- ============================================ -->
+    <!-- 参考表：语义标签 + 实体字符                     -->
+    <!-- ============================================ -->
+    <div class="ref">
+        <h2>语义化标签速查</h2>
+        <table>
+            <tr><th>标签</th><th>说明</th></tr>
+            <tr><td><code>&lt;header&gt;</code></td><td>页面或区块的头部</td></tr>
+            <tr><td><code>&lt;nav&gt;</code></td><td>导航链接区域</td></tr>
+            <tr><td><code>&lt;main&gt;</code></td><td>页面主要内容（唯一）</td></tr>
+            <tr><td><code>&lt;article&gt;</code></td><td>独立的文章内容</td></tr>
+            <tr><td><code>&lt;section&gt;</code></td><td>文档中的区块</td></tr>
+            <tr><td><code>&lt;aside&gt;</code></td><td>侧边栏/附属内容</td></tr>
+            <tr><td><code>&lt;footer&gt;</code></td><td>页面或区块的底部</td></tr>
+        </table>
+
+        <!-- title vs h1 -->
+        <h2>&lt;title&gt; vs &lt;h1&gt;</h2>
+        <table>
+            <tr><th>标签</th><th>位置</th><th>作用</th></tr>
+            <tr><td><code>&lt;title&gt;</code></td><td>head 中，不可见</td><td>浏览器标签页 + 搜索结果标题 + 收藏书签名</td></tr>
+            <tr><td><code>&lt;h1&gt;</code></td><td>body 中，可见</td><td>页面内的大标题</td></tr>
+        </table>
+
+        <h2>HTML 实体字符速查</h2>
+        <table>
+            <tr><th>实体</th><th>显示</th><th>说明</th></tr>
+            <tr><td><code>&amp;nbsp;</code></td><td>(空格)</td><td>不换行空格</td></tr>
+            <tr><td><code>&amp;lt;</code></td><td>&lt;</td><td>小于号</td></tr>
+            <tr><td><code>&amp;gt;</code></td><td>&gt;</td><td>大于号</td></tr>
+            <tr><td><code>&amp;amp;</code></td><td>&amp;</td><td>和号</td></tr>
+            <tr><td><code>&amp;copy;</code></td><td>&copy;</td><td>版权</td></tr>
+            <tr><td><code>&amp;reg;</code></td><td>&reg;</td><td>注册商标</td></tr>
+            <tr><td><code>&amp;trade;</code></td><td>&trade;</td><td>商标</td></tr>
+            <tr><td><code>&amp;times;</code></td><td>&times;</td><td>乘号</td></tr>
+            <tr><td><code>&amp;divide;</code></td><td>&divide;</td><td>除号</td></tr>
+            <tr><td><code>&amp;infin;</code></td><td>&infin;</td><td>无穷大</td></tr>
+        </table>
+    </div>
+</body>
+</html>

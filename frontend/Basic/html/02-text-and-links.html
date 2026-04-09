@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<!--
+    HTML 基础教程 02 - 文本格式化、超链接与列表
+    =========================================
+    知识点：
+    1. 文本格式化标签：加粗、斜体、下划线、删除线、高亮、上下标
+    2. 超链接 <a> 的各种用法
+    3. 行内元素 <span> 的使用场景
+    4. 三种列表：有序、无序、定义列表，以及嵌套列表
+
+    来源：Obsidian 笔记 notes/90-programming/frontend/html/20-elements.md
+-->
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02 文本与链接 — HTML 基础教程</title>
+    <style>
+        /* 简单的页面样式，让演示更清晰 */
+        body { font-family: system-ui, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.8; }
+        h1 { border-bottom: 2px solid #333; padding-bottom: 8px; }
+        h2 { color: #2563eb; margin-top: 32px; }
+        .highlight { background-color: #fef08a; padding: 2px 6px; border-radius: 4px; }
+        .demo-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin: 12px 0; }
+    </style>
+</head>
+<body>
+
+    <h1>文本格式化、超链接与列表</h1>
+
+    <!-- ============================================ -->
+    <!-- 第一部分：文本格式化                            -->
+    <!-- 语义化标签 vs 纯样式标签                        -->
+    <!-- <strong> 有"强调"语义（推荐），<b> 只是视觉加粗  -->
+    <!-- <em> 有"强调"语义（推荐），<i> 只是视觉斜体      -->
+    <!-- ============================================ -->
+    <h2>一、文本格式化</h2>
+
+    <div class="demo-box">
+        <!-- 加粗 -->
+        <p><b>普通加粗 &lt;b&gt;</b> —— 无语义，只是视觉效果</p>
+        <p><strong>强调加粗 &lt;strong&gt;</strong> —— 有语义，屏幕阅读器会重点朗读（推荐使用）</p>
+
+        <!-- 斜体 -->
+        <p><i>斜体 &lt;i&gt;</i> —— 无语义</p>
+        <p><em>强调斜体 &lt;em&gt;</em> —— 有语义（推荐使用）</p>
+
+        <!-- 下划线 -->
+        <p><u>下划线 &lt;u&gt;</u></p>
+
+        <!-- 删除线 -->
+        <p><s>删除线 &lt;s&gt;</s></p>
+        <p><del>删除线 &lt;del&gt;</del> —— 语义化的删除标记</p>
+
+        <!-- 高亮 -->
+        <p><mark>高亮 &lt;mark&gt;</mark> —— HTML5 新增</p>
+
+        <!-- 上标和下标 -->
+        <p>水的化学式：H<sub>2</sub>O（下标 &lt;sub&gt;）</p>
+        <p>2 的 10 次方：2<sup>10</sup> = 1024（上标 &lt;sup&gt;）</p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- 第二部分：超链接 <a>                            -->
+    <!-- href  链接地址（必须）                          -->
+    <!-- target 打开方式：_self 当前页（默认），_blank 新标签页 -->
+    <!-- 特殊链接：锚点 #id、邮箱 mailto:、电话 tel:     -->
+    <!-- ============================================ -->
+    <h2>二、超链接</h2>
+
+    <div class="demo-box">
+        <!-- 普通链接：在当前页面打开（默认 target="_self"） -->
+        <p><a href="https://www.example.com">普通链接（当前页面打开）</a></p>
+
+        <!-- 新标签页打开 -->
+        <p><a href="https://www.example.com" target="_blank">新标签页打开（target="_blank"）</a></p>
+
+        <!-- 页内锚点：点击后跳转到本页面中 id="section-lists" 的元素 -->
+        <p><a href="#section-lists">跳转到下方"列表"章节（锚点链接）</a></p>
+
+        <!-- 邮箱链接：点击后打开默认邮件客户端 -->
+        <p><a href="mailto:email@example.com">发送邮件（mailto:）</a></p>
+
+        <!-- 电话链接：移动端会直接拨号 -->
+        <p><a href="tel:+8613800138000">拨打电话（tel:）</a></p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- 第三部分：行内元素 <span>                       -->
+    <!-- <span> 本身没有任何样式/语义，是一个"无色无味"的容器 -->
+    <!-- 常用场景：给同一行文本中的部分内容加样式          -->
+    <!-- ============================================ -->
+    <h2>三、行内元素 Span</h2>
+
+    <div class="demo-box">
+        <!-- span 配合 class 给部分文字加上高亮样式 -->
+        <p>这是一段普通文字，但<span class="highlight">这部分被高亮</span>了，用的就是 &lt;span&gt; + CSS class</p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- 第四部分：列表                                  -->
+    <!-- 三种列表类型：                                  -->
+    <!--   <ol> 有序列表 (Ordered List) —— 自动编号      -->
+    <!--   <ul> 无序列表 (Unordered List) —— 圆点符号    -->
+    <!--   <dl> 定义列表 (Definition List) —— 术语+解释  -->
+    <!-- 列表可以互相嵌套                                -->
+    <!-- ============================================ -->
+    <h2 id="section-lists">四、列表</h2>
+
+    <!-- 有序列表：项目自动带编号 1. 2. 3. -->
+    <h3>有序列表 &lt;ol&gt;</h3>
+    <ol>
+        <li>第一步：准备材料</li>
+        <li>第二步：编写代码</li>
+        <li>第三步：测试运行</li>
+    </ol>
+
+    <!-- 无序列表：项目前面是圆点 -->
+    <h3>无序列表 &lt;ul&gt;</h3>
+    <ul>
+        <li>HTML —— 结构</li>
+        <li>CSS —— 样式</li>
+        <li>JavaScript —— 行为</li>
+    </ul>
+
+    <!-- 定义列表：适合"术语 + 解释"的场景 -->
+    <h3>定义列表 &lt;dl&gt;</h3>
+    <dl>
+        <!-- dt = Definition Term（术语） -->
+        <dt>HTML</dt>
+        <!-- dd = Definition Description（描述） -->
+        <dd>超文本标记语言，负责页面结构</dd>
+
+        <dt>CSS</dt>
+        <dd>层叠样式表，负责页面样式</dd>
+
+        <dt>JavaScript</dt>
+        <dd>脚本语言，负责页面交互</dd>
+    </dl>
+
+    <!-- 嵌套列表：列表可以互相嵌套 -->
+    <h3>嵌套列表</h3>
+    <ul>
+        <li>水果
+            <!-- 无序列表内嵌套有序列表 -->
+            <ol>
+                <li>苹果</li>
+                <li>香蕉</li>
+                <li>橙子</li>
+            </ol>
+        </li>
+        <li>蔬菜
+            <ol>
+                <li>西红柿</li>
+                <li>黄瓜</li>
+            </ol>
+        </li>
+    </ul>
+
+</body>
+</html>
