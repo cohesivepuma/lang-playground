@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SteveRay</title>
 
+
   <!-- 字体：标题用 Bebas Neue（大字冲击感），正文用 DM Sans（干净现代） -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -26,6 +27,7 @@
       padding: 0;
       box-sizing: border-box;
     }
+    /* 浏览器一般哟用的是content-box 容易出占位问题 计算与实际情况不符 所以改成box-sizing */
 
     body {
       background: var(--bg);
@@ -62,6 +64,11 @@
       z-index: 100;
       mix-blend-mode: multiply; /* 让导航在图片上也清晰 */
     }
+    /* 导航栏的基本原理
+    position: fixed 将其钉在最上面
+    下面三个位置将其紧紧贴紧上边框和左右两边框
+    
+    */
 
     .nav-logo {
       font-family: var(--font-body);
@@ -140,6 +147,10 @@
       /* transform: translateY(-60%); */
       text-align: right;
     }
+    /* 相关讲解
+    clamp(最小值, 理想值, 最大值)，这是响应式结构，最小不低于 5rem，最大不超过 13rem
+    rem是
+     */
 
     /* ── 底部信息条 ── */
     .hero-footer {
@@ -194,6 +205,7 @@
     </ul>
   </nav>
 
+  <!-- hero 为网站的第一面，规定一般都用hero来命名呢-->
   <!-- Hero -->
   <section class="hero">
     <div class="hero-main">
