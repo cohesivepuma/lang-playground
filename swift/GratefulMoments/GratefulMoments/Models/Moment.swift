@@ -3,7 +3,7 @@
 //  GratefulMoments
 //
 //  Created by 顾峻祥 on 2026/4/1.
-//
+// 这里是APP的模型层
 import Foundation //提供最基础的数据支持，Data、String、Date都靠它
 import SwiftData //负责把写的东西存到手机硬盘里面
 import UIKit //老牌框架，有些底层技术还是要用到它

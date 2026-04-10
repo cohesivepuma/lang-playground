@@ -11,7 +11,7 @@ import SwiftData
 
 @main
 struct GratefulMomentsApp: App {
-    let dataContainer = DataContainer()
+    let dataContainer = DataContainer()//app创建时启动SwiftData数据容器
 
 
     var body: some Scene {
@@ -19,6 +19,6 @@ struct GratefulMomentsApp: App {
             ContentView()
                 .environment(dataContainer)
         }
-        .modelContainer(dataContainer.modelContainer)
+        .modelContainer(dataContainer.modelContainer)//挂载到model​Container可以全局读取数据
     }
 }

@@ -3,7 +3,8 @@
 //  GratefulMoments
 //
 //  Created by 顾峻祥 on 2026/4/1.
-//
+// 这里主要是数据层，用 Swift​Data 管理 Moment 的存储（Model​Container + Model​Context）。
+//以及提供 sample​Data​Container() 方便预览时加载示例数据。
 import SwiftData
 import SwiftUI
 
