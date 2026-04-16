@@ -18,8 +18,8 @@
       --bg:       #f2ede8;   /* 米白背景，比纯白更有质感 */
       --ink:      #0d0d0d;   /* 近黑色，用于大标题 */
       --muted:    #888;      /* 灰色，用于导航和小字 */
-      --font-display: 'Bebas Neue', sans-serif;
-      --font-body:    'DM Sans', sans-serif;
+      --font-display: 'Bebas Neue', sans-serif; /* 标题字体 */
+      --font-body:    'DM Sans', sans-serif; /* 正文字体 */
     }
 
     * {
@@ -34,21 +34,21 @@
       color: var(--ink);
       font-family: var(--font-body);
       font-weight: 300;
-      min-height: 100vh;
+      min-height: 100vh;/* 元素的最小高度 */
       cursor: none; /* 隐藏系统光标，用自定义光标替代 */
     }
 
     /* ── 自定义光标 ── */
     .cursor {
-      position: fixed;
-      width: 10px;
+      position: fixed; /* 固定在屏幕上不随屏幕移动 */
+      width: 10px; /* 下面四行都是在定义这个光标的样式 */
       height: 10px;
       border: 1.5px solid var(--ink);
       border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease;
+      pointer-events: none;/* 使得这个div本身不触发任何点击事件，不然一直点击的是cursor本身 */
+      z-index: 9999;/* 永远在最上面一层不影响其他点击元素 */
+      transform: translate(-50%, -50%);/* js默认的是左上角，所以要将其移动至鼠标的中间 */
+      transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease;/* 鼠标的过渡动画，暂时没有变化，以后考研增加 */
     }
 
     /* ── 导航 ── */
@@ -147,10 +147,22 @@
       /* transform: translateY(-60%); */
       text-align: right;
     }
-    /* 相关讲解
-    clamp(最小值, 理想值, 最大值)，这是响应式结构，最小不低于 5rem，最大不超过 13rem
-    rem是
-     */
+/* 相关讲解
+clamp(最小值, 理想值, 最大值)，这是响应式结构，最小不低于 5rem，最大不超过 13rem
+rem是相对根元素字号的单位，默认1rem = 16px，使得缩放时比例不乱
+em 时相对元素自身的字号
+vw — viewport width，屏幕宽度的百分比。14vw 就是屏幕宽度的 14%
+
+.parent {
+  font-size: 20px;
+  padding: 1em;  1em = 该元素自身的 20px = 20px 
+}
+
+.child {
+  font-size: 1.5em;  1em = 父元素 20px，所以 child = 30px 
+  margin: 1em;       1em = child 自身的 30px = 30px 
+}
+*/
 
     /* ── 底部信息条 ── */
     .hero-footer {
@@ -163,7 +175,7 @@
 
     .hero-name {
       font-family: var(--font-display);
-      font-size: clamp(3rem, 8vw, 7rem);
+      font-size: clamp(3rem, 8vw, 7rem);/* vw是跟着屏幕缩放比例来的 */
       line-height: 1;
       color: var(--ink);
     }
@@ -243,9 +255,11 @@
 
   <script>
     // 自定义光标跟随鼠标
-    const cursor = document.getElementById('cursor');
-    document.addEventListener('mousemove', e => {
-      cursor.style.left = e.clientX + 'px';
+    const cursor = document.querySelector('#cursor');
+    //document.addEventListener('mousemove', 函数) 只要监听到鼠标移动就调用后面的函数
+    document.addEventListener('mousemove', e => { //e时浏览器自动传进来的事件对象
+      //这里传进来e.clientX和 e.clientY 时cursor的横坐标和纵坐标
+      cursor.style.left = e.clientX + 'px';//拼成px样式
       cursor.style.top  = e.clientY + 'px';
     });
   </script>
